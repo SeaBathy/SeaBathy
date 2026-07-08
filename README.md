@@ -44,3 +44,11 @@ SeaBathy is an early working release. Core offline map loading, waypoints, measu
 ## License
 
 MIT License. See `LICENSE`.
+
+## Data attribution and safety
+
+SeaBathy does not include official nautical charts. Any bathymetry or contour MBTiles must come from sources that allow redistribution.
+
+See [`DATA_ATTRIBUTION.md`](DATA_ATTRIBUTION.md) before uploading or distributing map data.
+
+SeaBathy and supplied MBTiles are not for navigation.
