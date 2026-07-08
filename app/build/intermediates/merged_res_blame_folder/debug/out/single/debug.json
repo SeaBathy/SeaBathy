@@ -1,0 +1,78 @@
+[
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_ic_waypoint_x.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/ic_waypoint_x.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_col_orange.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/col_orange.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_ic_close.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/ic_close.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_ic_menu.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/ic_menu.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_col_red.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/col_red.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_ic_gps.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/ic_gps.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_col_green.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/col_green.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_bg_tool_btn.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/bg_tool_btn.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_ic_layers.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/ic_layers.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_ic_measure.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/ic_measure.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_ic_gpx.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/ic_gpx.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_ic_anchor.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/ic_anchor.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_col_blue.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/col_blue.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_col_purple.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/col_purple.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_ic_pin.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/ic_pin.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/xml_file_paths.xml.flat",
+        "source": "au.opendepth.app-main-37:/xml/file_paths.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_ic_measure_ruler.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/ic_measure_ruler.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/layout_activity_main.xml.flat",
+        "source": "au.opendepth.app-main-37:/layout/activity_main.xml"
+    },
+    {
+        "merged": "au.opendepth.app-merged_res-35:/drawable_col_yellow.xml.flat",
+        "source": "au.opendepth.app-main-37:/drawable/col_yellow.xml"
+    }
+]

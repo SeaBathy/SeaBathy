@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/navy">
+
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#E60A0F1E"
+        android:elevation="4dp">
+        <View android:id="@+id/statusBarSpacer" android:layout_width="match_parent" android:layout_height="0dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="8dp">
+            <ImageButton
+                android:id="@+id/btnMenu"
+                android:layout_width="44dp" android:layout_height="44dp"
+                android:src="@drawable/ic_menu"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/teal"
+                android:contentDescription="Layers"/>
+            <TextView
+                android:id="@+id/tvCoords"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/teal"
+                android:textSize="13sp"
+                android:fontFamily="monospace"
+                android:paddingEnd="10dp"/>
+            <!-- Tool buttons in top right -->
+            <ImageButton
+                android:id="@+id/btnGps"
+                android:layout_width="40dp" android:layout_height="40dp"
+                android:src="@drawable/ic_gps"
+                android:background="@drawable/bg_tool_btn"
+                android:tint="@color/text_muted"
+                android:contentDescription="GPS"
+                android:layout_marginEnd="2dp"/>
+            <ImageButton
+                android:id="@+id/btnWpt"
+                android:layout_width="40dp" android:layout_height="40dp"
+                android:src="@drawable/ic_waypoint_x"
+                android:background="@drawable/bg_tool_btn"
+                android:tint="@color/text_muted"
+                android:contentDescription="Waypoint"
+                android:layout_marginEnd="2dp"/>
+            <ImageButton
+                android:id="@+id/btnMeasure"
+                android:layout_width="40dp" android:layout_height="40dp"
+                android:src="@drawable/ic_measure_ruler"
+                android:background="@drawable/bg_tool_btn"
+                android:tint="@color/text_muted"
+                android:contentDescription="Measure"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Permanent centre dot -->
+    <TextView
+        android:id="@+id/centerDot"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="✛"
+        android:textColor="#00C8B4"
+        android:textSize="13sp"
+        android:alpha="0.65"
+        android:elevation="2dp"/>
+
+    <!-- Crosshair -->
+    <FrameLayout
+        android:id="@+id/crosshairContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:clickable="false"
+        android:focusable="false">
+
+        <TextView
+            android:id="@+id/crosshairDot"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="✛"
+            android:textColor="#00C8B4"
+            android:textSize="16sp"
+            android:alpha="0.95"/>
+
+        <TextView
+            android:id="@+id/tvCrosshairCoords"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:translationY="26dp"
+            android:text="—"
+            android:visibility="gone"
+            android:textColor="#00C8B4"
+            android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:background="#AA0A0F1E"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/tvCrosshairDepth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:translationY="28dp"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:background="#AA0A0F1E"
+            android:padding="5dp"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <!-- Tool hint bar -->
+    <TextView
+        android:id="@+id/tvHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="96dp"
+        android:background="@color/teal"
+        android:textColor="@color/navy"
+        android:textSize="12sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:padding="7dp"
+        android:visibility="gone"
+        android:elevation="3dp"/>
+
+    <!-- Measure card -->
+    <LinearLayout
+        android:id="@+id/measureCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#F0111827"
+        android:padding="12dp"
+        android:visibility="gone"
+        android:elevation="4dp">
+        <TextView android:id="@+id/tvMeasure" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="monospace"/>
+        <Button android:id="@+id/btnMeasureClear" android:layout_width="wrap_content" android:layout_height="32dp"
+            android:text="CLEAR" android:textSize="11sp" android:textColor="@color/teal"
+            android:background="@color/surface" android:paddingHorizontal="12dp"/>
+    </LinearLayout>
+
+    <!-- Scrim -->
+    <FrameLayout android:id="@+id/panelScrim" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="#88000000" android:visibility="gone"/>
+
+    <!-- Side panel -->
+    <LinearLayout
+        android:id="@+id/sidePanel"
+        android:layout_width="300dp" android:layout_height="match_parent"
+        android:orientation="vertical" android:background="@color/panel"
+        android:translationX="-300dp" android:elevation="8dp">
+        <View android:id="@+id/panelStatusSpacer" android:layout_width="match_parent" android:layout_height="0dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:background="@color/navy" android:paddingStart="16dp" android:paddingEnd="8dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:text="LAYERS" android:textColor="@color/teal" android:textSize="13sp"
+                android:fontFamily="monospace" android:letterSpacing="0.15"/>
+            <ImageButton android:id="@+id/btnPanelClose" android:layout_width="44dp" android:layout_height="44dp"
+                android:src="@drawable/ic_close" android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Close"/>
+        </LinearLayout>
+        <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:paddingBottom="32dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="MBTILES FILES" android:textColor="@color/text_muted" android:textSize="10sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.1"
+                    android:paddingStart="16dp" android:paddingTop="14dp" android:paddingBottom="6dp"/>
+                <LinearLayout android:id="@+id/mbtilesList" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:orientation="vertical"/>
+                <Button android:id="@+id/btnLoadMbtiles" android:layout_width="match_parent" android:layout_height="44dp"
+                    android:text="+ Load MBTiles File" android:textColor="@color/teal" android:textSize="13sp"
+                    android:background="@color/surface" android:layout_marginHorizontal="16dp" android:layout_marginTop="8dp"/>
+                <Button android:id="@+id/btnSettings" android:layout_width="match_parent" android:layout_height="42dp"
+                    android:text="Settings" android:textColor="@color/text_primary" android:textSize="13sp"
+                    android:background="@color/surface" android:layout_marginHorizontal="16dp" android:layout_marginTop="8dp"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="WAYPOINTS" android:textColor="@color/text_muted" android:textSize="10sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.1"
+                    android:paddingStart="16dp" android:paddingTop="16dp" android:paddingBottom="6dp"/>
+                <LinearLayout android:id="@+id/waypointsList" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:orientation="vertical"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+        <!-- Basemap selector at bottom of panel -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:background="@color/navy" android:padding="12dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="BASEMAP" android:textColor="@color/text_muted" android:textSize="10sp"
+                android:fontFamily="monospace" android:paddingBottom="6dp"/>
+            <Spinner android:id="@+id/spinBasemap" android:layout_width="match_parent" android:layout_height="40dp"
+                android:background="@color/surface" android:paddingStart="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Waypoint dialog - sheet from bottom -->
+    <FrameLayout android:id="@+id/wptDialogBg" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="#BB000000" android:visibility="gone" android:elevation="10dp">
+        <LinearLayout android:id="@+id/wptDialog" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_gravity="bottom" android:orientation="vertical"
+            android:background="@color/panel" android:padding="20dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="NEW WAYPOINT" android:textColor="@color/teal" android:textSize="12sp"
+                android:fontFamily="monospace" android:letterSpacing="0.1" android:layout_marginBottom="14dp"/>
+            <EditText android:id="@+id/etWptName" android:layout_width="match_parent" android:layout_height="52dp"
+                android:hint="Name" android:textColor="@color/text_primary" android:textColorHint="@color/text_muted"
+                android:background="@color/surface" android:padding="12dp" android:inputType="text"
+                android:maxLines="1" android:imeOptions="actionDone" android:layout_marginBottom="14dp"/>
+            <LinearLayout android:id="@+id/colorPicker" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="horizontal"
+                android:gravity="center" android:layout_marginBottom="16dp">
+                <View android:id="@+id/col0" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/col_red" android:layout_margin="5dp"/>
+                <View android:id="@+id/col1" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/col_orange" android:layout_margin="5dp"/>
+                <View android:id="@+id/col2" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/col_yellow" android:layout_margin="5dp"/>
+                <View android:id="@+id/col3" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/col_green" android:layout_margin="5dp"/>
+                <View android:id="@+id/col4" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/col_blue" android:layout_margin="5dp"/>
+                <View android:id="@+id/col5" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/col_purple" android:layout_margin="5dp"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvWptCoords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textColor="@color/text_muted"
+                android:textSize="11sp"
+                android:fontFamily="monospace"
+                android:layout_marginBottom="12dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="end">
+                <Button android:id="@+id/btnWptCancel" android:layout_width="wrap_content" android:layout_height="44dp"
+                    android:text="Cancel" android:textColor="@color/text_muted" android:background="@color/surface"
+                    android:layout_marginEnd="8dp" android:paddingHorizontal="16dp"/>
+                <Button android:id="@+id/btnWptSave" android:layout_width="wrap_content" android:layout_height="44dp"
+                    android:text="Save" android:textColor="@color/navy" android:backgroundTint="@color/teal"
+                    android:paddingHorizontal="24dp"/>
+            </LinearLayout>
+            <View android:id="@+id/wptNavSpacer" android:layout_width="match_parent" android:layout_height="0dp"/>
+        </LinearLayout>
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
