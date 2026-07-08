@@ -117,11 +117,11 @@
             android:layout_gravity="center"
             android:translationY="26dp"
             android:text="—"
-            android:visibility="gone"
             android:textColor="#00C8B4"
             android:textSize="12sp"
             android:fontFamily="monospace"
             android:background="#AA0A0F1E"
+            android:visibility="gone"
             android:padding="5dp"/>
 
         <TextView
@@ -171,7 +171,7 @@
             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
                 android:text="ROUTE" android:textColor="@color/teal" android:textSize="11sp" android:fontFamily="monospace"/>
             <Button android:id="@+id/btnRouteUndo" android:layout_width="wrap_content" android:layout_height="30dp"
-                android:text="UNDO" android:textSize="10sp" android:textColor="@color/text_muted"
+                android:text="UNDO" android:textSize="13sp" android:textColor="@color/teal"
                 android:background="@color/surface" android:layout_marginEnd="6dp" android:paddingHorizontal="10dp"/>
             <Button android:id="@+id/btnRouteClear" android:layout_width="wrap_content" android:layout_height="30dp"
                 android:text="CLEAR" android:textSize="10sp" android:textColor="@color/text_muted"

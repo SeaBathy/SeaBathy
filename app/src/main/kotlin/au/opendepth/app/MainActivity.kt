@@ -899,7 +899,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateCrosshairCoords(lat: Double, lng: Double) {
-        try { findViewById<TextView>(R.id.tvCrosshairCoords)?.visibility = View.GONE } catch (e: Exception) {}
+        try {
+            findViewById<TextView>(R.id.tvCrosshairCoords)?.visibility = View.GONE
+        } catch (e: Exception) {}
     }
 
     private fun updateCrosshairDepth(depth: String) {
