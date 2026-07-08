@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
     private var cursorColor = "#00C8B4"
     private var coordColor = "#00C8B4"
     private var showDepth = true
+    private var depthDisplayMode = "both"
     private var depthTextSize = 12f
     private var coordTextSize = 13f
 
@@ -904,12 +905,30 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {}
     }
 
+    private fun depthEnabledForCurrentTool(): Boolean {
+        return when (depthDisplayMode) {
+            "off" -> false
+            "normal" -> tool == "none"
+            "waypoint" -> tool == "wpt"
+            else -> tool == "none" || tool == "wpt"
+        }
+    }
+
+    private fun depthModeLabel(): String {
+        return when (depthDisplayMode) {
+            "off" -> "Off"
+            "normal" -> "Normal only"
+            "waypoint" -> "Waypoint only"
+            else -> "Both"
+        }
+    }
+
     private fun updateCrosshairDepth(depth: String) {
         try {
             val tv = findViewById<TextView>(R.id.tvCrosshairDepth)
             tv.textSize = depthTextSize
             tv.setTextColor(Color.parseColor("#FFFFFF"))
-            if (showDepth && depth.isNotEmpty()) {
+            if (depthEnabledForCurrentTool() && depth.isNotEmpty()) {
                 tv.text = depth
                 tv.visibility = View.VISIBLE
             } else {
@@ -917,6 +936,7 @@ class MainActivity : AppCompatActivity() {
             }
         } catch (e: Exception) {}
     }
+
 
     private fun setCrosshair(visible: Boolean) {
         try {
@@ -1085,7 +1105,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        toolBtn(R.id.btnWpt,     "wpt",     "Tap map to drop a waypoint — long press anywhere")
+        toolBtn(R.id.btnWpt,     "wpt",     "Tap map to drop waypoint marker")
         toolBtn(R.id.btnRoute,   "route",   "Tap map to add route points")
         toolBtn(R.id.btnMeasure, "measure", "Tap map to measure — tap CLEAR when done")
 
@@ -1171,6 +1191,7 @@ class MainActivity : AppCompatActivity() {
         cursorColor = prefs.getString("cursor_color", "#00C8B4") ?: "#00C8B4"
         coordColor = prefs.getString("coord_color", "#00C8B4") ?: "#00C8B4"
         showDepth = prefs.getBoolean("show_depth", true)
+        depthDisplayMode = prefs.getString("depth_display_mode", if (showDepth) "both" else "off") ?: "both"
         depthTextSize = prefs.getFloat("depth_text_size", 12f)
         coordTextSize = prefs.getFloat("coord_text_size", 13f)
     }
@@ -1179,7 +1200,8 @@ class MainActivity : AppCompatActivity() {
         prefs.edit()
             .putString("cursor_color", cursorColor)
             .putString("coord_color", coordColor)
-            .putBoolean("show_depth", showDepth)
+            .putBoolean("show_depth", depthDisplayMode != "off")
+            .putString("depth_display_mode", depthDisplayMode)
             .putFloat("depth_text_size", depthTextSize)
             .putFloat("coord_text_size", coordTextSize)
             .apply()
@@ -1248,12 +1270,20 @@ class MainActivity : AppCompatActivity() {
                 }.show()
         }
 
-        val depthRow = row("Depth display", if (showDepth) "On" else "Off") {
-            showDepth = !showDepth
-            saveVisualSettings()
-            applyVisualSettings()
-            dialog.dismiss()
-            showVisualSettings()
+        val depthRow = row("Depth mode", depthModeLabel()) {
+            val labels = arrayOf("Both", "Normal only", "Waypoint only", "Off")
+            val values = arrayOf("both", "normal", "waypoint", "off")
+            android.app.AlertDialog.Builder(this)
+                .setTitle("Depth mode")
+                .setItems(labels) { _, i ->
+                    depthDisplayMode = values[i]
+                    showDepth = depthDisplayMode != "off"
+                    saveVisualSettings()
+                    applyVisualSettings()
+                    updateCrosshairDepth("")
+                    dialog.dismiss()
+                    showVisualSettings()
+                }.show()
         }
 
         val coordSizeRow = row("Coordinate size", coordTextSize.toInt().toString()) {
@@ -1300,8 +1330,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setHint(msg: String?) {
-        val tv = findViewById<TextView>(R.id.tvHint)
-        if (msg==null) tv.visibility=View.GONE else { tv.text=msg; tv.visibility=View.VISIBLE }
+        val v = findViewById<TextView>(R.id.tvHint)
+        if (msg.isNullOrBlank()) {
+            v.visibility = View.GONE
+            v.text = ""
+        } else {
+            v.text = msg
+            v.visibility = View.VISIBLE
+        }
     }
 
     private fun openPanel() {
