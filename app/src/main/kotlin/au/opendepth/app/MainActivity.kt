@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
     private var gpsCenteredOnce = false
     private var gpsListener: LocationListener? = null
     private val waypoints = mutableListOf<Waypoint>()
+    private val routePts = mutableListOf<RoutePoint>()
     private val measurePts = mutableListOf<RoutePoint>()
     private val mbtDbs = mutableMapOf<String, SQLiteDatabase>()
     private val mbtLayerIds = mutableListOf<String>()
@@ -210,6 +211,15 @@ class MainActivity : AppCompatActivity() {
             PropertyFactory.textColor("#E8EDF5"), PropertyFactory.textHaloColor("#0A0F1E"),
             PropertyFactory.textHaloWidth(1.5f), PropertyFactory.textOffset(arrayOf(0f, 1.8f)),
             PropertyFactory.textAnchor("top"), PropertyFactory.textFont(arrayOf("Open Sans Regular"))))
+        s.addSource(GeoJsonSource("route-src", buildEmptyGeoJson()))
+        s.addLayer(LineLayer("route-line", "route-src")
+            .withFilter(Expression.eq(Expression.geometryType(), Expression.literal("LineString")))
+            .withProperties(PropertyFactory.lineColor("#00C8B4"), PropertyFactory.lineWidth(3f),
+                PropertyFactory.lineDasharray(arrayOf(2f, 1f))))
+        s.addLayer(CircleLayer("route-pts", "route-src")
+            .withFilter(Expression.eq(Expression.geometryType(), Expression.literal("Point")))
+            .withProperties(PropertyFactory.circleRadius(7f), PropertyFactory.circleColor("#00C8B4"),
+                PropertyFactory.circleStrokeWidth(2f), PropertyFactory.circleStrokeColor("#FFFFFF")))
         s.addSource(GeoJsonSource("meas-src", buildEmptyGeoJson()))
         s.addLayer(LineLayer("meas-line", "meas-src")
             .withFilter(Expression.eq(Expression.geometryType(), Expression.literal("LineString")))
@@ -925,7 +935,39 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun refreshRoute() {
+        val feats = mutableListOf<String>()
+        if (routePts.size >= 2) {
+            val coords = routePts.joinToString(",") { "[${it.lng},${it.lat}]" }
+            feats.add("""{"type":"Feature","geometry":{"type":"LineString","coordinates":[$coords]},"properties":{}}""")
+        }
+        routePts.forEach { feats.add("""{"type":"Feature","geometry":{"type":"Point","coordinates":[${it.lng},${it.lat}]},"properties":{}}""") }
+        (style?.getSource("route-src") as? GeoJsonSource)?.setGeoJson("""{"type":"FeatureCollection","features":[${feats.joinToString(",")}]}""")
 
+        val card = findViewById<LinearLayout>(R.id.routeCard)
+
+        if (routePts.isEmpty()) {
+            if (tool == "route") {
+                card.visibility = View.VISIBLE
+                findViewById<TextView>(R.id.tvRouteInfo).text = "ROUTE PLANNER — tap map to add first point at centre dot"
+            } else {
+                card.visibility = View.GONE
+            }
+            return
+        }
+
+        card.visibility = View.VISIBLE
+
+        if (routePts.size < 2) {
+            findViewById<TextView>(R.id.tvRouteInfo).text = "1 route point — tap map to add next point"
+            return
+        }
+
+        val nm = totalNm(routePts.map { Pair(it.lat, it.lng) })
+        val b = bearing(routePts.first(), routePts.last())
+        findViewById<TextView>(R.id.tvRouteInfo).text =
+            "ROUTE: ${routePts.size} pts  |  %.2f nm  (%.1f km)  |  %.0f°T  |  @6kt: %s  @12kt: %s".format(nm, nm*1.852, b, eta(nm,6.0), eta(nm,12.0))
+    }
 
     private fun refreshMeasure() {
         val feats = mutableListOf<String>()
@@ -950,8 +992,16 @@ class MainActivity : AppCompatActivity() {
         return 2*R*asin(sqrt(x))
     }
     private fun totalNm(pts: List<Pair<Double,Double>>): Double { var t=0.0; for(i in 1 until pts.size) t+=distNm(pts[i-1],pts[i]); return t }
-
-
+    private fun bearing(a: RoutePoint, b: RoutePoint): Double {
+        val dL = Math.toRadians(b.lng-a.lng); val y = sin(dL)*cos(Math.toRadians(b.lat))
+        val x = cos(Math.toRadians(a.lat))*sin(Math.toRadians(b.lat))-sin(Math.toRadians(a.lat))*cos(Math.toRadians(b.lat))*cos(dL)
+        return (Math.toDegrees(atan2(y,x))+360)%360
+    }
+    private fun eta(nm: Double, kts: Double): String {
+        if (nm<=0||kts<=0) return "—"
+        val h=nm/kts; val hh=h.toInt(); val mm=((h-hh)*60).toInt()
+        return if (hh>0) "${hh}h${mm}m" else "${mm}m"
+    }
     private fun fmtDDM(lat: Double, lng: Double): String {
         val ld=abs(lat).toInt(); val lm=(abs(lat)-ld)*60
         val nd=abs(lng).toInt(); val nm=(abs(lng)-nd)*60
@@ -960,17 +1010,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun exportGpx() {
         var gpx = """<?xml version="1.0" encoding="UTF-8"?><gpx version="1.1" creator="SeaBathy">"""
-        waypoints.forEach {
-            gpx += """<wpt lat="${it.lat}" lon="${it.lng}"><name>${it.name}</name></wpt>"""
-        }
+        waypoints.forEach { gpx += """<wpt lat="${it.lat}" lon="${it.lng}"><n>${it.name}</n></wpt>""" }
+        if (routePts.size>1) { gpx+="<rte><n>Route</n>"; routePts.forEach { gpx+="""<rtept lat="${it.lat}" lon="${it.lng}"/>""" }; gpx+="</rte>" }
         gpx += "</gpx>"
-        val file = File(filesDir.resolve("exports").also { it.mkdirs() }, "seabathy_${System.currentTimeMillis()}.gpx")
+        val file = File(filesDir.resolve("exports").also{it.mkdirs()}, "seabathy_${System.currentTimeMillis()}.gpx")
         file.writeText(gpx)
         val uri = androidx.core.content.FileProvider.getUriForFile(this, "$packageName.fileprovider", file)
         startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
-            type = "application/gpx+xml"
-            putExtra(Intent.EXTRA_STREAM, uri)
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            type="application/gpx+xml"; putExtra(Intent.EXTRA_STREAM,uri); addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }, "Export GPX"))
     }
 
@@ -1004,6 +1051,7 @@ class MainActivity : AppCompatActivity() {
                         val path = mbtFilePaths[lid]
                         if (db != null && path != null) addMbtLayerToMap(lid, db, path)
                     }
+                    refreshRoute()
                     refreshMeasure()
                 }
             }
@@ -1034,14 +1082,10 @@ class MainActivity : AppCompatActivity() {
                     else setCrosshair(true)
                 }
             }
-        }        toolBtn(R.id.btnWpt,     "wpt",     "Tap map to drop waypoint marker")
-        findViewById<ImageButton>(R.id.btnRoute).apply {
-            visibility = View.GONE
-            isEnabled = false
-            isClickable = false
-            alpha = 0f
         }
-        toolBtn(R.id.btnMeasure, "measure", "Tap map to measure distance")
+        toolBtn(R.id.btnWpt,     "wpt",     "Tap map to drop a waypoint — long press anywhere")
+        toolBtn(R.id.btnRoute,   "route",   "Tap map to add route points")
+        toolBtn(R.id.btnMeasure, "measure", "Tap map to measure — tap CLEAR when done")
 
         // GPS: grey=off, green=locate/free pan, orange=follow lock
         updateGpsButton()
@@ -1067,6 +1111,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnMeasureClear).setOnClickListener {
             measurePts.clear(); refreshMeasure(); tool="none"; setHint(null); highlightTool(null)
         }
+        // Route removed for now; keep code dormant for possible future route planner
+        findViewById<LinearLayout>(R.id.routeCard).visibility = View.GONE
+        routePts.clear()
 
         // Waypoint dialog
         listOf(R.id.col0,R.id.col1,R.id.col2,R.id.col3,R.id.col4,R.id.col5).forEachIndexed { i, rid ->

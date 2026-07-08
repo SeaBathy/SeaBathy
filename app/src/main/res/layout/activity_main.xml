@@ -59,6 +59,15 @@
                 android:contentDescription="Waypoint"
                 android:layout_marginEnd="2dp"/>
             <ImageButton
+                android:id="@+id/btnRoute"
+                android:layout_width="40dp" android:layout_height="40dp"
+                android:src="@drawable/ic_route"
+                android:background="@drawable/bg_tool_btn"
+                android:tint="@color/text_muted"
+                android:contentDescription="Route"
+                android:layout_marginEnd="2dp"
+                android:visibility="gone"/>
+            <ImageButton
                 android:id="@+id/btnMeasure"
                 android:layout_width="40dp" android:layout_height="40dp"
                 android:src="@drawable/ic_measure_ruler"
@@ -145,6 +154,36 @@
         android:padding="7dp"
         android:visibility="gone"
         android:elevation="3dp"/>
+
+    <!-- Route card -->
+    <LinearLayout
+        android:id="@+id/routeCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="#F0111827"
+        android:padding="12dp"
+        android:visibility="gone"
+        android:elevation="4dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="6dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:text="ROUTE" android:textColor="@color/teal" android:textSize="11sp" android:fontFamily="monospace"/>
+            <Button android:id="@+id/btnRouteUndo" android:layout_width="wrap_content" android:layout_height="30dp"
+                android:text="UNDO" android:textSize="10sp" android:textColor="@color/text_muted"
+                android:background="@color/surface" android:layout_marginEnd="6dp" android:paddingHorizontal="10dp"/>
+            <Button android:id="@+id/btnRouteClear" android:layout_width="wrap_content" android:layout_height="30dp"
+                android:text="CLEAR" android:textSize="10sp" android:textColor="@color/text_muted"
+                android:background="@color/surface" android:layout_marginEnd="6dp" android:paddingHorizontal="10dp"/>
+            <ImageButton android:id="@+id/btnRouteGpx" android:layout_width="30dp" android:layout_height="30dp"
+                android:src="@drawable/ic_gpx" android:background="@color/surface" android:tint="@color/teal"
+                android:contentDescription="Export GPX"/>
+        </LinearLayout>
+        <TextView android:id="@+id/tvRouteInfo" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textColor="@color/text_primary" android:textSize="12sp" android:fontFamily="monospace"/>
+        <View android:id="@+id/navBarSpacer" android:layout_width="match_parent" android:layout_height="0dp"/>
+    </LinearLayout>
 
     <!-- Measure card -->
     <LinearLayout
