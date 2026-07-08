@@ -1,6 +1,6 @@
 # SeaBathy
 
-SeaBathy is a native Kotlin Android app for viewing offline MBTiles bathymetry and marine map layers.
+SeaBathy is a native Kotlin Android app for viewing offline MBTiles bathymetry and marine map layers. Many navigational maps are dervided from publicly avalible data. If you would lile to help. please let me know.😃
 
 ## Features
 
