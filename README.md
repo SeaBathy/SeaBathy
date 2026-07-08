@@ -5,14 +5,15 @@ SeaBathy is a native Kotlin Android app for viewing offline MBTiles bathymetry a
 ## Features
 
 - Offline MBTiles loading
-- MapLibre-based map display
+- MapLibre map display
+- Raster and vector MBTiles support
 - Layer opacity controls
 - Basemap switching
 - Waypoints with names, notes, colours, search, jump, edit and delete
 - Measurement tool
 - GPS locate and follow modes
 - Depth display from supported contour/vector MBTiles
-- Visual settings for cursor, coordinate colour, coordinate size, and depth display
+- Visual settings for cursor colour, coordinate colour, depth mode and text sizes
 
 ## Build
 
@@ -20,7 +21,7 @@ Requirements:
 
 - Java 21
 - Android SDK
-- Android Gradle Plugin / Gradle wrapper included in this repository
+- Included Gradle wrapper
 
 Build a debug APK:
 
@@ -30,15 +31,15 @@ APK output:
 
     app/build/outputs/apk/debug/app-debug.apk
 
-## MBTiles
+## Map data
 
-SeaBathy does not bundle map data. Load MBTiles files from device storage.
+SeaBathy does not include map data. MBTiles files are loaded separately from device storage.
 
-Supported MBTiles behaviour depends on the tile type and metadata. Raster MBTiles display as map overlays. Vector contour MBTiles can provide depth display when contour attributes are available.
+Depth display depends on vector contour MBTiles exposing supported contour/depth attributes.
 
-## Current status
+## Project status
 
-SeaBathy is currently a working early release/prototype. The app is suitable for testing offline MBTiles viewing, waypoints, measurement, and GPS workflows.
+SeaBathy is an early working release. Core offline map loading, waypoints, measurement, GPS and depth display are functional.
 
 ## License
 

@@ -1,13 +1,14 @@
 # Changelog
 
-## SeaBathy v1.0.0-dev
+## v1.0.0-dev
 
-- Native Kotlin Android app
-- Offline MBTiles loading
-- Layer opacity controls
-- Waypoints with search, notes, colour, jump, edit and delete
-- Measurement tool
-- GPS locate and follow modes
-- Depth display from supported contour/vector MBTiles
-- Visual settings
-- SeaBathy rebrand
+- Rebranded app to SeaBathy
+- Added offline MBTiles loading
+- Added layer opacity controls
+- Added waypoint manager with notes, colours, search, jump, edit and delete
+- Added measurement tool
+- Added GPS locate/follow modes
+- Added depth display for supported contour/vector MBTiles
+- Added depth display mode setting
+- Added visual settings for cursor and coordinate display
+- Polished map HUD styling
