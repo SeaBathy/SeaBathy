@@ -52,3 +52,10 @@ SeaBathy does not include official nautical charts. Any bathymetry or contour MB
 See [`DATA_ATTRIBUTION.md`](DATA_ATTRIBUTION.md) before uploading or distributing map data.
 
 SeaBathy and supplied MBTiles are not for navigation.
+
+## Screenshots
+
+<p align="center">
+  <img src="screenshots/seabathy-map.jpg" width="260">
+  <img src="screenshots/seabathy-layers.jpg" width="260">
+</p>
