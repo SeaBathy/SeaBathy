@@ -6,8 +6,24 @@
         <item name="colorSecondary">@color/teal</item>
         <item name="colorOnSecondary">@color/navy</item>
         <item name="android:colorBackground">@color/navy</item>
+        <item name="android:windowBackground">@color/navy</item>
         <item name="android:statusBarColor">@color/navy</item>
         <item name="android:navigationBarColor">@color/navy</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_muted</item>
+        <item name="android:colorAccent">@color/teal</item>
+    </style>
+
+    <style name="Theme.SeaBathy.Dialog" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/bg_dialog_surface</item>
+        <item name="android:colorBackground">@color/surface</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_muted</item>
+        <item name="colorAccent">@color/teal</item>
+        <item name="colorPrimary">@color/teal</item>
+        <item name="colorOnPrimary">@color/navy</item>
+        <item name="android:windowNoTitle">false</item>
     </style>
 </resources>

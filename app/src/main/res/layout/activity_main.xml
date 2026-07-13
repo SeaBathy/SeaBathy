@@ -10,10 +10,10 @@
             <ImageButton android:id="@+id/btnMenu" android:layout_width="44dp" android:layout_height="44dp" android:src="@drawable/ic_menu" android:background="?attr/selectableItemBackgroundBorderless" android:tint="@color/teal" android:contentDescription="Layers" />
             <TextView android:id="@+id/tvCoords" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textColor="@color/teal" android:textSize="13sp" android:fontFamily="monospace" android:paddingEnd="10dp" android:background="@drawable/bg_top_coord" android:paddingStart="10dp" android:paddingTop="6dp" android:paddingBottom="6dp" />
             
-            <ImageButton android:id="@+id/btnGps" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_gps" android:background="@drawable/bg_tool_btn" android:tint="@color/text_muted" android:contentDescription="GPS" android:layout_marginEnd="2dp" />
-            <ImageButton android:id="@+id/btnWpt" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_waypoint_x" android:background="@drawable/bg_tool_btn" android:tint="@color/text_muted" android:contentDescription="Waypoint" android:layout_marginEnd="2dp" />
+            <ImageButton android:id="@+id/btnGps" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_gps" android:background="@drawable/bg_top_tool" android:tint="@color/text_primary" android:contentDescription="GPS" android:layout_marginEnd="2dp" />
+            <ImageButton android:id="@+id/btnWpt" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_waypoint_x" android:background="@drawable/bg_top_tool" android:tint="@color/text_primary" android:contentDescription="Waypoint" android:layout_marginEnd="2dp" />
             <ImageButton android:id="@+id/btnRoute" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_route" android:background="@drawable/bg_tool_btn" android:tint="@color/text_muted" android:contentDescription="Route" android:layout_marginEnd="2dp" android:visibility="gone" />
-            <ImageButton android:id="@+id/btnMeasure" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_measure_ruler" android:background="@drawable/bg_tool_btn" android:tint="@color/text_muted" android:contentDescription="Measure" />
+            <ImageButton android:id="@+id/btnMeasure" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_measure_ruler" android:background="@drawable/bg_top_tool" android:tint="@color/text_primary" android:contentDescription="Measure" />
         </LinearLayout>
     </LinearLayout>
 
@@ -52,37 +52,39 @@
     </LinearLayout>
 
     
+    <TextView android:id="@+id/tvMapAttribution" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="bottom|start" android:layout_marginStart="8dp" android:layout_marginBottom="72dp" android:background="#AA0A0F1E" android:paddingStart="6dp" android:paddingEnd="6dp" android:paddingTop="3dp" android:paddingBottom="3dp" android:textColor="@color/text_muted" android:textSize="9sp" android:visibility="gone" />
+
     <FrameLayout android:id="@+id/panelScrim" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#88000000" android:visibility="gone" />
 
     
     <LinearLayout android:id="@+id/sidePanel" android:layout_width="300dp" android:layout_height="match_parent" android:orientation="vertical" android:background="@color/panel" android:translationX="-300dp" android:elevation="8dp">
         <View android:id="@+id/panelStatusSpacer" android:layout_width="match_parent" android:layout_height="0dp" />
         <LinearLayout android:layout_width="match_parent" android:layout_height="52dp" android:orientation="horizontal" android:gravity="center_vertical" android:background="@color/navy" android:paddingStart="16dp" android:paddingEnd="8dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="LAYERS" android:textColor="@color/teal" android:textSize="13sp" android:fontFamily="monospace" android:letterSpacing="0.15" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Layers" android:textColor="@color/teal" android:textSize="13sp" android:fontFamily="sans-serif-medium" />
             <ImageButton android:id="@+id/btnPanelClose" android:layout_width="44dp" android:layout_height="44dp" android:src="@drawable/ic_close" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="Close" />
         </LinearLayout>
         <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingBottom="32dp">
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="MBTILES FILES" android:textColor="@color/text_muted" android:textSize="10sp" android:fontFamily="monospace" android:letterSpacing="0.1" android:paddingStart="16dp" android:paddingTop="14dp" android:paddingBottom="6dp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Map layers" android:textColor="@color/text_muted" android:textSize="10sp" android:fontFamily="sans-serif-medium" android:paddingStart="16dp" android:paddingTop="14dp" android:paddingBottom="6dp" />
                 <LinearLayout android:id="@+id/mbtilesList" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
                 <Button android:id="@+id/btnLoadMbtiles" android:layout_width="match_parent" android:layout_height="44dp" android:text="+ Load MBTiles File" android:textColor="@color/teal" android:textSize="13sp" android:background="@drawable/bg_soft_card" android:layout_marginHorizontal="16dp" android:layout_marginTop="8dp" />
-                <Button android:id="@+id/btnSettings" android:layout_width="match_parent" android:layout_height="42dp" android:text="Settings" android:textColor="@color/text_primary" android:textSize="13sp" android:background="@drawable/bg_soft_card" android:layout_marginHorizontal="16dp" android:layout_marginTop="8dp" />
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="WAYPOINTS" android:textColor="@color/text_muted" android:textSize="10sp" android:fontFamily="monospace" android:letterSpacing="0.1" android:paddingStart="16dp" android:paddingTop="16dp" android:paddingBottom="6dp" />
+                <Button android:id="@+id/btnSettings" android:layout_width="match_parent" android:layout_height="48dp" android:text="Settings     ›" android:textAllCaps="false" android:textColor="@color/text_primary" android:textSize="14sp" android:gravity="center_vertical|start" android:paddingStart="16dp" android:background="@drawable/bg_setting_row" android:layout_marginHorizontal="16dp" android:layout_marginTop="8dp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Waypoints" android:textColor="@color/text_muted" android:textSize="10sp" android:fontFamily="sans-serif-medium" android:paddingStart="16dp" android:paddingTop="16dp" android:paddingBottom="6dp" />
                 <LinearLayout android:id="@+id/waypointsList" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
         
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@color/navy" android:padding="12dp">
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="BASEMAP" android:textColor="@color/text_muted" android:textSize="10sp" android:fontFamily="monospace" android:paddingBottom="6dp" />
-            <Spinner android:id="@+id/spinBasemap" android:layout_width="match_parent" android:layout_height="40dp" android:background="@color/surface" android:paddingStart="10dp" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Basemap" android:textColor="@color/text_muted" android:textSize="10sp" android:fontFamily="monospace" android:paddingBottom="6dp" />
+            <Spinner android:id="@+id/spinBasemap" android:layout_width="match_parent" android:layout_height="48dp" android:background="@drawable/bg_spinner_field" android:paddingStart="12dp" android:paddingEnd="8dp" />
         </LinearLayout>
     </LinearLayout>
 
     
     <FrameLayout android:id="@+id/wptDialogBg" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#BB000000" android:visibility="gone" android:elevation="10dp">
-        <LinearLayout android:id="@+id/wptDialog" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:orientation="vertical" android:background="@color/panel" android:padding="20dp">
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="NEW WAYPOINT" android:textColor="@color/teal" android:textSize="12sp" android:fontFamily="monospace" android:letterSpacing="0.1" android:layout_marginBottom="14dp" />
-            <EditText android:id="@+id/etWptName" android:layout_width="match_parent" android:layout_height="52dp" android:hint="Name" android:textColor="@color/text_primary" android:textColorHint="@color/text_muted" android:background="@color/surface" android:padding="12dp" android:inputType="text" android:maxLines="1" android:imeOptions="actionDone" android:layout_marginBottom="14dp" />
+        <LinearLayout android:id="@+id/wptDialog" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:orientation="vertical" android:background="@drawable/bg_dialog_surface" android:paddingStart="20dp" android:paddingTop="22dp" android:paddingEnd="20dp" android:paddingBottom="18dp" android:layout_marginStart="10dp" android:layout_marginEnd="10dp" android:layout_marginBottom="10dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="New waypoint" android:textColor="@color/teal" android:textSize="12sp" android:fontFamily="sans-serif-medium" android:layout_marginBottom="14dp" />
+            <EditText android:id="@+id/etWptName" android:layout_width="match_parent" android:layout_height="52dp" android:hint="Waypoint name" android:textColor="@color/text_primary" android:textColorHint="@color/text_muted" android:background="@drawable/bg_input_field" android:padding="12dp" android:inputType="text" android:maxLines="1" android:imeOptions="actionDone" android:layout_marginBottom="14dp" />
             <LinearLayout android:id="@+id/colorPicker" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center" android:layout_marginBottom="16dp">
                 <View android:id="@+id/col0" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/col_red" android:layout_margin="5dp" />
                 <View android:id="@+id/col1" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/col_orange" android:layout_margin="5dp" />
@@ -91,10 +93,10 @@
                 <View android:id="@+id/col4" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/col_blue" android:layout_margin="5dp" />
                 <View android:id="@+id/col5" android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/col_purple" android:layout_margin="5dp" />
             </LinearLayout>
-            <TextView android:id="@+id/tvWptCoords" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="—" android:textColor="@color/text_muted" android:textSize="11sp" android:fontFamily="monospace" android:layout_marginBottom="12dp" />
+            <TextView android:id="@+id/tvWptCoords" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48dp" android:gravity="center_vertical" android:text="—" android:textColor="@color/text_primary" android:textSize="12sp" android:fontFamily="monospace" android:background="@drawable/bg_setting_row" android:paddingStart="14dp" android:paddingEnd="14dp" android:layout_marginBottom="14dp" />
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="end">
-                <Button android:id="@+id/btnWptCancel" android:layout_width="wrap_content" android:layout_height="44dp" android:text="Cancel" android:textColor="@color/text_muted" android:background="@color/surface" android:layout_marginEnd="8dp" android:paddingHorizontal="16dp" />
-                <Button android:id="@+id/btnWptSave" android:layout_width="wrap_content" android:layout_height="44dp" android:text="Save" android:textColor="@color/navy" android:backgroundTint="@color/teal" android:paddingHorizontal="24dp" />
+                <Button android:id="@+id/btnWptCancel" android:layout_width="wrap_content" android:layout_height="44dp" android:text="Cancel" android:textAllCaps="false" android:textColor="@color/text_primary" android:background="@drawable/bg_secondary_button" android:layout_marginEnd="8dp" android:paddingHorizontal="16dp" />
+                <Button android:id="@+id/btnWptSave" android:layout_width="wrap_content" android:layout_height="44dp" android:text="Save waypoint" android:textAllCaps="false" android:textColor="@color/navy" android:background="@drawable/bg_primary_button" android:paddingHorizontal="24dp" />
             </LinearLayout>
             <View android:id="@+id/wptNavSpacer" android:layout_width="match_parent" android:layout_height="0dp" />
         </LinearLayout>

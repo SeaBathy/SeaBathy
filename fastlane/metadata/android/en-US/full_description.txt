@@ -1,0 +1,16 @@
+SeaBathy is an open-source Android map application designed for offline bathymetry and marine map viewing.
+
+Features include:
+
+• Offline raster and vector MBTiles support
+• Multiple map layers and opacity controls
+• Bathymetry and contour overlays
+• Waypoint creation, editing, search and export
+• Distance measurement
+• GPS locate and follow modes
+• Configurable depth display
+• Offline operation with no account required
+• Optional online basemaps
+• User-configurable XYZ tile server support
+
+SeaBathy does not include official nautical charts and must not be used as the sole source for navigation or safety-of-life decisions.

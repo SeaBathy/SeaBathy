@@ -1,0 +1,4 @@
+Added configurable custom XYZ online basemaps with saved attribution.
+Removed the hardcoded satellite imagery provider.
+Added map attribution display.
+Prepared metadata for F-Droid submission.
